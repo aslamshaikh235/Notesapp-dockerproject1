@@ -20,11 +20,17 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    
                     sh '''
                     docker run --rm \
-                    -e SONAR_HOST_URL=http://100.52.171.109:9000 \
-                    -e SONAR_LOGIN=$SONAR_TOKEN \
-                    sonarsource/sonar-scanner-cli
+                    -v $(pwd):/usr/src \
+                    -e SONAR_HOST_URL="http://100.52.171.109:9000" \
+                    -e SONAR_TOKEN="$SONAR_TOKEN" \
+                    sonarsource/sonar-scanner-cli \
+                    -Dsonar.projectKey=notes-app \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://100.52.171.109:9000 \
+                    -Dsonar.token=$SONAR_TOKEN
                     '''
                 }
             }
