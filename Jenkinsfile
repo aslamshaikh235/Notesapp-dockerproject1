@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_ACCOUNT_ID = "153196843353"
+        AWS_ACCOUNT_ID = "531968433537"
         AWS_DEFAULT_REGION = "us-east-1"
         IMAGE_REPO_NAME = "notes-app"
         IMAGE_TAG = "latest"
